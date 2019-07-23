@@ -1,0 +1,31 @@
+body {
+    width: 1060px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: azure;
+}
+
+h1 {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 35px;
+}
+
+#productImages {
+    width: 1060px;
+    height: 500px;
+    background-color: darkgrey;
+    border-radius: 10px;
+    border: 2px solid darkslateblue;
+    padding: 15px;
+}
+
+#productImages img {
+    display: inline-block;
+    margin-right: 4px;
+    border: 3px solid black;
+}
+
+#productOne {
+    margin-left: 10px;
+}
