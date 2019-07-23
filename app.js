@@ -38,15 +38,15 @@ new randomProduct('usb', 'gif');
 new randomProduct('water-can', 'jpg');
 new randomProduct('wine-glass', 'jpg');
 
-var productList = document.getElementById('listData');
-var ulEl = document.createElement('ul');
-productList.appendChild(ulEl);
+// var productList = document.getElementById('listData');
+// var ulEl = document.createElement('ul');
+// productList.appendChild(ulEl);
 
-randomProduct.prototype.renderTotalVotes = function() {
-    var liEl = document.createElement('li');
-    liEl.textContent = `${this.votes} votes for the ${this.name}.`;
-    ulEl.appendChild(liEl);
-}
+// randomProduct.prototype.renderTotalVotes = function() {
+//     var liEl = document.createElement('li');
+//     liEl.textContent = `${this.votes} votes for the ${this.name}.`;
+//     ulEl.appendChild(liEl);
+// }
 
 function render() {
     var randomIndex = getUniqueRandom()
@@ -87,7 +87,7 @@ function getUniqueRandom() {
         randomIndex = randomNumber(0, allProducts.length - 1);
     }
     if (recentRandomNumbers.length > 5) {
-        recentRandomNumbers.shift(2);
+        recentRandomNumbers.shift();
     }
     recentRandomNumbers.push(randomIndex);
     return randomIndex;
@@ -105,13 +105,145 @@ function handleClick() {
     }
     if (totalClicks > 24) {
         productImagesEl.removeEventListener('click', handleClick, true);
-        for (var i = 0; i < allProducts.length; i++) {
-            allProducts[i].renderTotalVotes();
-        }
+        // for (var i = 0; i < allProducts.length; i++) {
+        //     allProducts[i].renderTotalVotes();
+        // }
+        generateChart();
+        generateProductPercentage();
+        renderCharts();
+        console.log('made it here')
     }
     render();
 }
 productImagesEl.addEventListener('click', handleClick, true);
 
+var productNamesArray = [];
+var productVotesArray = [];
+var productViewsArray = [];
+var productPercentageArray = [];
 
-render();
+function generateChart() {
+    for (var i = 0; i < allProducts.length; i++) {
+        productNamesArray.push(allProducts[i].name);
+        productVotesArray.push(allProducts[i].votes);
+        productViewsArray.push(allProducts[i].views);
+    }
+}
+
+function generateProductPercentage() {
+    var productPercentage = 0;
+    for (var i = 0; i < productVotesArray.length; i++) {
+        if (productVotesArray[i] === 0) {
+            productPercentageArray.push(productVotesArray[i]);
+        } else {
+            productPercentage = ((productVotesArray[i] / productViewsArray[i]) * 100);
+            productPercentageArray.push(productPercentage);
+        }
+    }
+}
+
+function renderCharts() {
+    //chart.js
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: productNamesArray,
+            datasets: [{
+                label: '# of Votes',
+                data: productVotesArray,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    //PieChart.js
+    var ctx = document.getElementById('myPercentageChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: productNamesArray,
+            datasets: [{
+                label: 'Percentage of How Often This Item Was Picked',
+                data: productPercentageArray,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
