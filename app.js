@@ -107,7 +107,6 @@ function handleClick() {
     render(productOneEl);
     render(productTwoEl);
     render(productThreeEl);
-
 }
 productImagesEl.addEventListener('click', handleClick, true);
 
@@ -189,6 +188,8 @@ function renderCharts() {
         }
     });
 
+    buttonEl.addEventListener('click', function() { localStorage.clear(); });
+
     //PieChart.js
     var ctx = document.getElementById('myPercentageChart').getContext('2d');
     var myChart = new Chart(ctx, {
@@ -241,12 +242,6 @@ function renderCharts() {
         }
     });
 }
-
-
-
-
-
-
 
 // allProducts.sort(function(a,b)){
 //     if(a.votes < b.votes){
