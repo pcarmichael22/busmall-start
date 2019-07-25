@@ -20,7 +20,7 @@ function RandomProduct(name, filetype) {
 function renderLocal() {
     if (localStorage.length === 0) {
         console.log('made it');
-        instantiateProducts();
+        instantiateProducts(); // makes all new instances
     } else {
         console.log('in the else');
         var storageProducts = localStorage.getItem('pageData');
@@ -188,7 +188,6 @@ function renderCharts() {
         }
     });
 
-    // buttonEl.addEventListener('click', function() { localStorage.clear(); });
 
     //PieChart.js
     var ctx = document.getElementById('myPercentageChart').getContext('2d');
