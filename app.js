@@ -8,9 +8,9 @@ var allProducts = [];
 var recentRandomNumbers = [];
 var totalClicks = 0;
 
-function randomProduct(name, filetype) {
+function RandomProduct(name, filetype) {
     this.name = name;
-    this.filepath = `img/${name}.${filetype}`;
+    this.filepath = `img/${name}.${filetype}`; // template literal
     this.votes = 0;
     this.views = 0;
 
@@ -20,7 +20,7 @@ function randomProduct(name, filetype) {
 function renderLocal() {
     if (localStorage.length === 0) {
         console.log('made it');
-        instantiateProducts();
+        instantiateProducts(); // makes all new instances
     } else {
         console.log('in the else');
         var storageProducts = localStorage.getItem('pageData');
@@ -34,26 +34,26 @@ function renderLocal() {
 
 
 function instantiateProducts() {
-    new randomProduct('bag', 'jpg');
-    new randomProduct('banana', 'jpg');
-    new randomProduct('bathroom', 'jpg');
-    new randomProduct('boots', 'jpg');
-    new randomProduct('breakfast', 'jpg');
-    new randomProduct('bubblegum', 'jpg');
-    new randomProduct('chair', 'jpg');
-    new randomProduct('cthulhu', 'jpg');
-    new randomProduct('dog-duck', 'jpg');
-    new randomProduct('dragon', 'jpg');
-    new randomProduct('pen', 'jpg');
-    new randomProduct('pet-sweep', 'jpg');
-    new randomProduct('scissors', 'jpg');
-    new randomProduct('shark', 'jpg');
-    new randomProduct('sweep', 'png');
-    new randomProduct('tauntaun', 'jpg');
-    new randomProduct('unicorn', 'jpg');
-    new randomProduct('usb', 'gif');
-    new randomProduct('water-can', 'jpg');
-    new randomProduct('wine-glass', 'jpg');
+    new RandomProduct('bag', 'jpg');
+    new RandomProduct('banana', 'jpg');
+    new RandomProduct('bathroom', 'jpg');
+    new RandomProduct('boots', 'jpg');
+    new RandomProduct('breakfast', 'jpg');
+    new RandomProduct('bubblegum', 'jpg');
+    new RandomProduct('chair', 'jpg');
+    new RandomProduct('cthulhu', 'jpg');
+    new RandomProduct('dog-duck', 'jpg');
+    new RandomProduct('dragon', 'jpg');
+    new RandomProduct('pen', 'jpg');
+    new RandomProduct('pet-sweep', 'jpg');
+    new RandomProduct('scissors', 'jpg');
+    new RandomProduct('shark', 'jpg');
+    new RandomProduct('sweep', 'png');
+    new RandomProduct('tauntaun', 'jpg');
+    new RandomProduct('unicorn', 'jpg');
+    new RandomProduct('usb', 'gif');
+    new RandomProduct('water-can', 'jpg');
+    new RandomProduct('wine-glass', 'jpg');
 }
 // instantiateProducts();
 
@@ -188,7 +188,6 @@ function renderCharts() {
         }
     });
 
-    buttonEl.addEventListener('click', function() { localStorage.clear(); });
 
     //PieChart.js
     var ctx = document.getElementById('myPercentageChart').getContext('2d');
