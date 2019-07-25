@@ -17,58 +17,53 @@ function randomProduct(name, filetype) {
     allProducts.push(this);
 }
 
-new randomProduct('bag', 'jpg');
-new randomProduct('banana', 'jpg');
-new randomProduct('bathroom', 'jpg');
-new randomProduct('boots', 'jpg');
-new randomProduct('breakfast', 'jpg');
-new randomProduct('bubblegum', 'jpg');
-new randomProduct('chair', 'jpg');
-new randomProduct('cthulhu', 'jpg');
-new randomProduct('dog-duck', 'jpg');
-new randomProduct('dragon', 'jpg');
-new randomProduct('pen', 'jpg');
-new randomProduct('pet-sweep', 'jpg');
-new randomProduct('scissors', 'jpg');
-new randomProduct('shark', 'jpg');
-new randomProduct('sweep', 'png');
-new randomProduct('tauntaun', 'jpg');
-new randomProduct('unicorn', 'jpg');
-new randomProduct('usb', 'gif');
-new randomProduct('water-can', 'jpg');
-new randomProduct('wine-glass', 'jpg');
+function renderLocal() {
+    if (localStorage.length === 0) {
+        console.log('made it');
+        instantiateProducts();
+    } else {
+        console.log('in the else');
+        var storageProducts = localStorage.getItem('pageData');
+        var parsedProducts = JSON.parse(storageProducts);
+        allProducts = parsedProducts;
+    }
+    render(productOneEl);
+    render(productTwoEl);
+    render(productThreeEl);
+}
 
-// var productList = document.getElementById('listData');
-// var ulEl = document.createElement('ul');
-// productList.appendChild(ulEl);
 
-// randomProduct.prototype.renderTotalVotes = function() {
-//     var liEl = document.createElement('li');
-//     liEl.textContent = `${this.votes} votes for the ${this.name}.`;
-//     ulEl.appendChild(liEl);
-// }
+function instantiateProducts() {
+    new randomProduct('bag', 'jpg');
+    new randomProduct('banana', 'jpg');
+    new randomProduct('bathroom', 'jpg');
+    new randomProduct('boots', 'jpg');
+    new randomProduct('breakfast', 'jpg');
+    new randomProduct('bubblegum', 'jpg');
+    new randomProduct('chair', 'jpg');
+    new randomProduct('cthulhu', 'jpg');
+    new randomProduct('dog-duck', 'jpg');
+    new randomProduct('dragon', 'jpg');
+    new randomProduct('pen', 'jpg');
+    new randomProduct('pet-sweep', 'jpg');
+    new randomProduct('scissors', 'jpg');
+    new randomProduct('shark', 'jpg');
+    new randomProduct('sweep', 'png');
+    new randomProduct('tauntaun', 'jpg');
+    new randomProduct('unicorn', 'jpg');
+    new randomProduct('usb', 'gif');
+    new randomProduct('water-can', 'jpg');
+    new randomProduct('wine-glass', 'jpg');
+}
+// instantiateProducts();
 
-function render() {
+function render(imageEl) {
     var randomIndex = getUniqueRandom()
     allProducts[randomIndex].views++;
 
-    productOneEl.src = allProducts[randomIndex].filepath;
-    productOneEl.alt = allProducts[randomIndex].name;
-    productOneEl.title = allProducts[randomIndex].name;
-
-    var randomIndex = getUniqueRandom()
-    allProducts[randomIndex].views++;
-
-    productTwoEl.src = allProducts[randomIndex].filepath;
-    productTwoEl.alt = allProducts[randomIndex].name;
-    productTwoEl.title = allProducts[randomIndex].name;
-
-    var randomIndex = getUniqueRandom()
-    allProducts[randomIndex].views++;
-
-    productThreeEl.src = allProducts[randomIndex].filepath;
-    productThreeEl.alt = allProducts[randomIndex].name;
-    productThreeEl.title = allProducts[randomIndex].name;
+    imageEl.src = allProducts[randomIndex].filepath;
+    imageEl.alt = allProducts[randomIndex].name;
+    imageEl.title = allProducts[randomIndex].name;
 }
 
 
@@ -77,8 +72,6 @@ function render() {
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-render();
 
 function getUniqueRandom() {
     var randomIndex = randomNumber(0, allProducts.length - 1);
@@ -105,15 +98,15 @@ function handleClick() {
     }
     if (totalClicks > 24) {
         productImagesEl.removeEventListener('click', handleClick, true);
-        // for (var i = 0; i < allProducts.length; i++) {
-        //     allProducts[i].renderTotalVotes();
-        // }
         generateChart();
         generateProductPercentage();
         renderCharts();
-        console.log('made it here')
+        var stringifyAllProducts = JSON.stringify(allProducts);
+        localStorage.setItem('pageData', stringifyAllProducts);
     }
-    render();
+    render(productOneEl);
+    render(productTwoEl);
+    render(productThreeEl);
 }
 productImagesEl.addEventListener('click', handleClick, true);
 
@@ -195,6 +188,8 @@ function renderCharts() {
         }
     });
 
+    buttonEl.addEventListener('click', function() { localStorage.clear(); });
+
     //PieChart.js
     var ctx = document.getElementById('myPercentageChart').getContext('2d');
     var myChart = new Chart(ctx, {
@@ -247,3 +242,18 @@ function renderCharts() {
         }
     });
 }
+
+// allProducts.sort(function(a,b)){
+//     if(a.votes < b.votes){
+//         return 1;
+//     } else {
+//         return -1;
+//     }
+// };
+
+//Ternary Operator
+
+// allProducts.sort(functio(a,b)){
+//     a.votes < b.votes ? 1 : -1;
+// }
+renderLocal();
