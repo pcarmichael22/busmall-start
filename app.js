@@ -32,6 +32,11 @@ function renderLocal() {
     render(productThreeEl);
 }
 
+}
+render(productOneEl);
+render(productTwoEl);
+render(productThreeEl);
+}
 
 function instantiateProducts() {
     new RandomProduct('bag', 'jpg');
